@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  real-time-chat:
+    image: bzeeno/real-time-chat-server:latest
+    depends_on:
+      - mongo
+    build:
+      context: .
+    container_name: server
+    hostname: server
+    networks:
+      - mynet
+    ports:
+      - 8000:8080
+      - 8080:8080
+    environment:
+      - PORT=${PORT:-8080}
+      - MONGO_URI=${MONGO_URI:-mongodb://mongo:27017/}
+      - SECRET_KEY=${SECRET_KEY:-mysecretkey}
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  mongo:
+    image: mongo:latest
+    container_name: rtc-mongo
+    hostname: db
+    networks:
+      - mynet
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+
+volumes:
+  mongo:
+networks:
+  mynet:
+    driver: bridge

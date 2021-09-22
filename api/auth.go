@@ -2,6 +2,7 @@ package api
 
 import (
 	"log"
+	"os"
 	"time"
 
 	"github.com/bzeeno/RealTimeChat/database"
@@ -13,7 +14,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-const SECRET_KEY = "secret"
+var SECRET_KEY = os.Getenv("SECRET_KEY")
 
 func Register(c *fiber.Ctx) error {
 	var data map[string]string

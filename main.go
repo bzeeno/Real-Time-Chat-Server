@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/bzeeno/RealTimeChat/database"
 	"github.com/bzeeno/RealTimeChat/routes"
 	"github.com/gofiber/fiber/v2"
@@ -30,5 +32,9 @@ func main() {
 		return fiber.ErrUpgradeRequired
 	})
 
-	app.Listen(":8000")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000"
+	}
+	app.Listen(":" + port)
 }

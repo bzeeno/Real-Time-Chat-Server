@@ -2,6 +2,7 @@ package chat
 
 import (
 	"log"
+	"os"
 
 	"github.com/bzeeno/RealTimeChat/database"
 	"github.com/bzeeno/RealTimeChat/models"
@@ -11,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-const SECRET_KEY = "secret"
+var SECRET_KEY = os.Getenv("SECRET_KEY")
 
 var current_pools []*Pool
 
